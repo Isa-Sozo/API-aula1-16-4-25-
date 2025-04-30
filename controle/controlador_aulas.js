@@ -1,17 +1,37 @@
-function pegarTodasAsAulas (req,res){
-    const id = req.params.id
-    fs.readFile('bancoDeDados.json', 'utf-8', (err, data) =>{
+function pegarTodasAsAulas(req, res) {
+    const id = req.params.id;
+    fs.readFile('bancoDeDados.json', 'utf-8', (err, data) => {
         if (err) {
             return res.status(500).send('Erro ao ler o arquivo');
         }
-        const aulas = JSON.parse(data)
-        const aula = usuarios.find(aula => aula.id == id)
+        const aulas = JSON.parse(data); 
+        const aula = aulas.find(aula => aula.id == id); 
         if (aula) {
             return res.status(200).send(aula);
         } else {
-            return res.status(404).send('Usuário não encontrado');
-    }
-});
+            return res.status(404).send('Aula não encontrada');
+        }
+    });
 }
-    module.exports = {pegarTodasAsAulas}
-     
+
+
+function pegarAulaPorId(req, res) {
+    const id = req.params.id;
+    fs.readFile('bancoDeDados.json', 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Erro ao ler o arquivo');
+        }
+        const aulas = JSON.parse(data);
+        const aula = aulas.find(aula => aula.id == id);
+        if (aula) {
+            return res.status(200).send(aula);
+        } else {
+            return res.status(404).send('Aula não encontrada');
+        }
+    });
+}
+
+module.exports ={
+    pegarTodasAsAulas, 
+    pegarAulaPorId,
+}
